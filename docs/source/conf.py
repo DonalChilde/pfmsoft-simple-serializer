@@ -22,7 +22,7 @@ with open("../../pyproject.toml", "rb") as f:
 
 # make sure that the src dir is on the path to support autodoc, version, etc
 sys.path.insert(0, os.path.abspath("../../src"))
-from pfmsoft_snippets_simple_serializer import (  # pylint: disable=wrong-import-position
+from pfmsoft.snippets.simple_serializer import (  # pylint: disable=wrong-import-position
     __release__,
     __version__,
 )

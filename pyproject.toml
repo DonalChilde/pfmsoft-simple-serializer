@@ -14,10 +14,8 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 
 ]
-authors = [
-    { name = "Chad Lowe", email = "pfmsoft.dev@gmail.com" },
-]
-name = "pfmsoft-snippets-simple-serializer"
+authors = [{ name = "Chad Lowe", email = "pfmsoft.dev@gmail.com" }]
+name = "pfmsoft.snippets.simple-serializer"
 readme = "README.md"
 requires-python = ">=3.13"
 license = { file = "LICENSE" }
@@ -26,10 +24,10 @@ dynamic = ["version", "description"]
 # https://peps.python.org/pep-0508/#examples
 # "pfmsoft-snippets@git+https://github.com/donalchilde/pfmsoft-snippets@0.0.1"
 # "pfmsoft-snippets-indexed-string@git+https://github.com/donalchilde/pfmsoft-snippets-indexed-string@dev"
-dependencies = ["typer"]
+# dependencies = ["typer"]
 
 [project.scripts]
-pfmsoft-snippets-simple-serializer_typer = "pfmsoft_snippets_simple_serializer.cli.main_typer:app"
+# pfmsoft-snippets-simple-serializer_typer = "pfmsoft_snippets_simple_serializer.cli.main_typer:app"
 
 [project.urls]
 Documentation = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer#readme"
