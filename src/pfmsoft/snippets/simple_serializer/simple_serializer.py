@@ -95,7 +95,7 @@ class SimpleSerializerABC(ABC, Generic[COMPLEX_OBJ, SIMPLE_OBJ]):
         for item in complex_obj:
             yield self.to_simple(item)
 
-    def save_json(
+    def save_as_json(
         self,
         path_out: Path,
         complex_obj: COMPLEX_OBJ,
@@ -104,14 +104,33 @@ class SimpleSerializerABC(ABC, Generic[COMPLEX_OBJ, SIMPLE_OBJ]):
     ):
         check_file(path_out=path_out, overwrite=overwrite)
         path_out.parent.mkdir(exist_ok=True, parents=True)
+        data = self.to_simple(complex_obj=complex_obj)
         with open(path_out, "w") as file:
-            json_dump(obj=complex_obj, fp=file, default=self.to_simple, indent=indent)
+            json_dump(obj=data, fp=file, indent=indent)
 
-    def load_json(self, path_in: Path) -> COMPLEX_OBJ:
+    def save_iter_as_json(
+        self,
+        path_out: Path,
+        complex_obj: Iterable[COMPLEX_OBJ],
+        indent: int = 1,
+        overwrite: bool = False,
+    ):
+        check_file(path_out=path_out, overwrite=overwrite)
+        path_out.parent.mkdir(exist_ok=True, parents=True)
+        data = list(self.to_simple_gen(complex_obj=complex_obj))
+        with open(path_out, "w") as file:
+            json_dump(obj=data, fp=file, indent=indent)
+
+    def load_from_json(self, path_in: Path) -> COMPLEX_OBJ:
         with open(path_in, "r") as file:
             return self.from_simple(json_load(file))
 
-    def save_yaml(
+    def load_from_json_list(self, path_in: Path) -> list[COMPLEX_OBJ]:
+        with open(path_in, "r") as file:
+            json_data = json_load(file)
+            return list(self.from_simple_gen(simple_objs=json_data))
+
+    def save_as_yaml(
         self,
         path_out: Path,
         complex_obj: COMPLEX_OBJ,
@@ -123,13 +142,38 @@ class SimpleSerializerABC(ABC, Generic[COMPLEX_OBJ, SIMPLE_OBJ]):
         check_file(path_out=path_out, overwrite=overwrite)
         path_out.parent.mkdir(exist_ok=True, parents=True)
         with open(path_out, "w") as file:
-            safe_dump(data=self.to_simple(complex_obj), stream=file, indent=indent)  # type: ignore
+            safe_dump(data=self.to_simple(complex_obj), stream=file, indent=indent)
 
-    def load_yaml(self, path_in: Path, complex_obj: Type[COMPLEX_OBJ]) -> COMPLEX_OBJ:
+    def save_iter_as_yaml(
+        self,
+        path_out: Path,
+        complex_obj: Iterable[COMPLEX_OBJ],
+        indent: int = 1,
+        overwrite: bool = False,
+    ):
+        if not YAML_PRESENT:
+            raise ValueError("PyYaml not found.")
+        check_file(path_out=path_out, overwrite=overwrite)
+        path_out.parent.mkdir(exist_ok=True, parents=True)
+        with open(path_out, "w") as file:
+            safe_dump(
+                data=list(self.to_simple_gen(complex_obj)),
+                stream=file,
+                indent=indent,
+            )
+
+    def load_from_yaml(self, path_in: Path) -> COMPLEX_OBJ:
         if not YAML_PRESENT:
             raise ValueError("PyYaml not found.")
         with open(path_in, "r") as file:
-            return self.from_simple(safe_load(file))  # type: ignore
+            return self.from_simple(safe_load(file))
+
+    def load_from_yaml_list(self, path_in: Path) -> list[COMPLEX_OBJ]:
+        if not YAML_PRESENT:
+            raise ValueError("PyYaml not found.")
+        with open(path_in, "r") as file:
+            yaml_data = safe_load(file)
+            return list(self.from_simple_gen(yaml_data))
 
 
 def check_file(path_out: Path, overwrite: bool = False) -> bool:
