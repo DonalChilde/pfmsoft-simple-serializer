@@ -9,7 +9,6 @@ from typing import (
     Generic,
     Iterable,
     Optional,
-    Type,
     TypeVar,
 )
 
@@ -190,35 +189,48 @@ def check_file(path_out: Path, overwrite: bool = False) -> bool:
 class DataclassSerializer(SimpleSerializerABC[COMPLEX_OBJ, SIMPLE_OBJ]):
     def __init__(
         self,
-        data_cls: Type[COMPLEX_OBJ],
         simple_factory: Optional[Callable[[COMPLEX_OBJ], SIMPLE_OBJ]] = None,
         complex_factory: Optional[Callable[[SIMPLE_OBJ], COMPLEX_OBJ]] = None,
     ) -> None:
+        """
+        A simple dataclass serializer.
+
+        To serialize, the default arguments are enough.
+        Default behavior for the simple factory is `asdict(value)`
+
+        To deserialize, provide a complex factory.
+
+        ```
+        # For simple cases:
+        lambda x: YourDataclass(**x)
+        ```
+
+        Args:
+            simple_factory : The dataclass to simple object factory. Defaults to None.
+            complex_factory : The simple object to dataclass factory. Defaults to None.
+        """
+
         if simple_factory is None:
             simple_factory = self._to_simple_default
-        if complex_factory is None:
-            complex_factory = self._from_simple_default
         self.simple_factory = simple_factory
         self.complex_factory = complex_factory
         super().__init__(
             simple_factory=simple_factory,
             complex_factory=complex_factory,
         )
-        self.data_cls = data_cls
 
     def to_simple(self, complex_obj: COMPLEX_OBJ) -> SIMPLE_OBJ:
         return self.simple_factory(complex_obj)
 
     def from_simple(self, simple_obj: SIMPLE_OBJ) -> COMPLEX_OBJ:
+        if self.complex_factory is None:
+            raise ValueError("SimpleSerializer was not provided a complex factory.")
         return self.complex_factory(simple_obj)
 
-    def _to_simple_default(self, complex_obj: COMPLEX_OBJ) -> SIMPLE_OBJ:
-        if is_dataclass(complex_obj):
-            return asdict(complex_obj)  # type: ignore
+    def _to_simple_default(self, data_cls: COMPLEX_OBJ) -> SIMPLE_OBJ:
+        if is_dataclass(data_cls):
+            return asdict(data_cls)  # type: ignore
         else:
             raise ValueError(
-                f"complex_obj is not a dataclass, its type name is {type(complex_obj).__name__}"
+                f"complex_obj is not a dataclass, its type name is {type(data_cls).__name__}"
             )
-
-    def _from_simple_default(self, simple_obj: SIMPLE_OBJ) -> COMPLEX_OBJ:
-        return self.data_cls(**simple_obj)

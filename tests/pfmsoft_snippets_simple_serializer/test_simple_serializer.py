@@ -20,7 +20,9 @@ class DCTestClassTD(TypedDict):
 
 
 def test_to_simple():
-    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](DCTestClass)
+    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](
+        complex_factory=lambda x: DCTestClass(**x)
+    )
     dc = DCTestClass(name="bob", items=["chair", "table"])
     dctd: DCTestClassTD = {"name": "bob", "items": ["chair", "table"]}
     simplified_dc = serializer.to_simple(dc)
@@ -30,29 +32,35 @@ def test_to_simple():
 
 
 def test_to_json(test_output_dir: Path):
-    logger.info("trying to save json")
+    # logger.info("trying to save json")
     dc = DCTestClass(name="bob", items=["chair", "table"])
-    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](DCTestClass)
+    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](
+        complex_factory=lambda x: DCTestClass(**x)
+    )
     path_out = test_output_dir / "test_to_json" / "output.json"
     serializer.save_as_json(path_out=path_out, complex_obj=dc, overwrite=True)
 
 
 def test_list_to_json(test_output_dir: Path):
-    logger.info("trying to save json")
+    # logger.info("trying to save json")
     dc = DCTestClass(name="bob", items=["chair", "table"])
     dc2 = DCTestClass(name="Richard", items=["Billard balls", "cue stick"])
     items = [dc, dc2]
-    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](DCTestClass)
+    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](
+        complex_factory=lambda x: DCTestClass(**x)
+    )
     path_out = test_output_dir / "test_list_to_json" / "output.json"
     serializer.save_iter_as_json(path_out=path_out, complex_obj=items, overwrite=True)
 
 
 def test_list_from_json(test_output_dir: Path):
-    logger.info("trying to save json")
+    # logger.info("trying to save json")
     dc = DCTestClass(name="bob", items=["chair", "table"])
     dc2 = DCTestClass(name="Richard", items=["Billard balls", "cue stick"])
     items = [dc, dc2]
-    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](DCTestClass)
+    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](
+        complex_factory=lambda x: DCTestClass(**x)
+    )
     path_out = test_output_dir / "test_list_from_json" / "output.json"
     serializer.save_iter_as_json(path_out=path_out, complex_obj=items, overwrite=True)
     loaded_items = serializer.load_from_json_list(path_in=path_out)
@@ -60,11 +68,13 @@ def test_list_from_json(test_output_dir: Path):
 
 
 def test_list_from_yaml(test_output_dir: Path):
-    logger.info("trying to save json")
+    # logger.info("trying to save json")
     dc = DCTestClass(name="bob", items=["chair", "table"])
     dc2 = DCTestClass(name="Richard", items=["Billard balls", "cue stick"])
     items = [dc, dc2]
-    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](DCTestClass)
+    serializer = DataclassSerializer[DCTestClass, DCTestClassTD](
+        complex_factory=lambda x: DCTestClass(**x)
+    )
     path_out = test_output_dir / "test_list_from_yaml" / "output.yaml"
     serializer.save_iter_as_yaml(path_out=path_out, complex_obj=items, overwrite=True)
     loaded_items = serializer.load_from_yaml_list(path_in=path_out)
