@@ -9,7 +9,6 @@ from typing import (
     Generic,
     Iterable,
     Optional,
-    Protocol,
     Type,
     TypeVar,
 )
@@ -26,52 +25,52 @@ COMPLEX_OBJ = TypeVar("COMPLEX_OBJ")
 SIMPLE_OBJ = TypeVar("SIMPLE_OBJ")
 
 
-class SimpleConverter(Protocol[COMPLEX_OBJ, SIMPLE_OBJ]):
-    def to_simple(self, complex_obj: COMPLEX_OBJ) -> SIMPLE_OBJ: ...
+# class SimpleConverter(Protocol[COMPLEX_OBJ, SIMPLE_OBJ]):
+#     def to_simple(self, complex_obj: COMPLEX_OBJ) -> SIMPLE_OBJ: ...
 
-    def from_simple(self, simple_obj: SIMPLE_OBJ) -> COMPLEX_OBJ: ...
+#     def from_simple(self, simple_obj: SIMPLE_OBJ) -> COMPLEX_OBJ: ...
 
-    def from_simple_gen(
-        self, simple_objs: Iterable[SIMPLE_OBJ]
-    ) -> Generator[COMPLEX_OBJ, None, None]: ...
+#     def from_simple_gen(
+#         self, simple_objs: Iterable[SIMPLE_OBJ]
+#     ) -> Generator[COMPLEX_OBJ, None, None]: ...
 
-    def to_simple_gen(
-        self,
-        complex_objs: Iterable[COMPLEX_OBJ],
-    ) -> Generator[SIMPLE_OBJ, None, None]: ...
+#     def to_simple_gen(
+#         self,
+#         complex_objs: Iterable[COMPLEX_OBJ],
+#     ) -> Generator[SIMPLE_OBJ, None, None]: ...
 
 
-class SimpleSerializer(Protocol[COMPLEX_OBJ]):
-    def save_json(
-        self,
-        path_out: Path,
-        complex_obj: COMPLEX_OBJ,
-        indent: int = 1,
-        overwrite: bool = False,
-    ): ...
+# class SimpleSerializer(Protocol[COMPLEX_OBJ]):
+#     def save_json(
+#         self,
+#         path_out: Path,
+#         complex_obj: COMPLEX_OBJ,
+#         indent: int = 1,
+#         overwrite: bool = False,
+#     ): ...
 
-    def load_json(self, path_in: Path) -> COMPLEX_OBJ: ...
+#     def load_json(self, path_in: Path) -> COMPLEX_OBJ: ...
 
-    def save_yaml(
-        self,
-        path_out: Path,
-        complex_obj: COMPLEX_OBJ,
-        indent: int = 1,
-        overwrite: bool = False,
-    ): ...
+#     def save_yaml(
+#         self,
+#         path_out: Path,
+#         complex_obj: COMPLEX_OBJ,
+#         indent: int = 1,
+#         overwrite: bool = False,
+#     ): ...
 
-    def load_yaml(self, path_in: Path) -> COMPLEX_OBJ: ...
+#     def load_yaml(self, path_in: Path) -> COMPLEX_OBJ: ...
 
 
 class SimpleSerializerABC(ABC, Generic[COMPLEX_OBJ, SIMPLE_OBJ]):
     def __init__(
         self,
-        complex_cls: Type[COMPLEX_OBJ],
+        # complex_cls: Type[COMPLEX_OBJ],
         simple_factory: Optional[Callable[[COMPLEX_OBJ], SIMPLE_OBJ]] = None,
         complex_factory: Optional[Callable[[SIMPLE_OBJ], COMPLEX_OBJ]] = None,
     ) -> None:
         super().__init__()
-        self.complex_cls = complex_cls
+        # self.complex_cls = complex_cls
         self.simple_factory = simple_factory
         self.complex_factory = complex_factory
 
@@ -191,7 +190,7 @@ def check_file(path_out: Path, overwrite: bool = False) -> bool:
 class DataclassSerializer(SimpleSerializerABC[COMPLEX_OBJ, SIMPLE_OBJ]):
     def __init__(
         self,
-        complex_cls: Type[COMPLEX_OBJ],
+        data_cls: Type[COMPLEX_OBJ],
         simple_factory: Optional[Callable[[COMPLEX_OBJ], SIMPLE_OBJ]] = None,
         complex_factory: Optional[Callable[[SIMPLE_OBJ], COMPLEX_OBJ]] = None,
     ) -> None:
@@ -202,11 +201,10 @@ class DataclassSerializer(SimpleSerializerABC[COMPLEX_OBJ, SIMPLE_OBJ]):
         self.simple_factory = simple_factory
         self.complex_factory = complex_factory
         super().__init__(
-            complex_cls=complex_cls,
             simple_factory=simple_factory,
             complex_factory=complex_factory,
         )
-        self.complex_cls = complex_cls
+        self.data_cls = data_cls
 
     def to_simple(self, complex_obj: COMPLEX_OBJ) -> SIMPLE_OBJ:
         return self.simple_factory(complex_obj)
@@ -223,4 +221,4 @@ class DataclassSerializer(SimpleSerializerABC[COMPLEX_OBJ, SIMPLE_OBJ]):
             )
 
     def _from_simple_default(self, simple_obj: SIMPLE_OBJ) -> COMPLEX_OBJ:
-        return self.complex_cls(**simple_obj)
+        return self.data_cls(**simple_obj)
