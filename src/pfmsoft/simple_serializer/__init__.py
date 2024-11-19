@@ -1,4 +1,4 @@
-"""Top-level package for pfmsoft_snippets_simple_serializer."""
+"""Top-level package for pfmsoft_simple_serializer."""
 
 from pfmsoft.simple_serializer.simple_serializer import DataclassSerializer
 

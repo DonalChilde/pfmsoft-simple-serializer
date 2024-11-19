@@ -1,1 +1,1 @@
-"""Test suite for the pfmsoft_snippets_simple_serializer package."""
+"""Test suite for the pfmsoft_simple_serializer package."""

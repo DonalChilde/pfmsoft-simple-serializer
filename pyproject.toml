@@ -22,8 +22,7 @@ license = { file = "LICENSE" }
 dynamic = ["version", "description"]
 # https://chrisholdgraf.com/blog/2022/install-github-from-pyproject/
 # https://peps.python.org/pep-0508/#examples
-# "pfmsoft-snippets@git+https://github.com/donalchilde/pfmsoft-snippets@0.0.1"
-# "pfmsoft-snippets-indexed-string@git+https://github.com/donalchilde/pfmsoft-indexed-string@dev"
+# "pfmsoft-indexed-string@git+https://github.com/donalchilde/pfmsoft-indexed-string@dev"
 # dependencies = ["typer"]
 
 [project.scripts]
