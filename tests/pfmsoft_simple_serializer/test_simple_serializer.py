@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TypedDict
 
-from pfmsoft.snippets.simple_serializer.simple_serializer import DataclassSerializer
+from pfmsoft.simple_serializer.simple_serializer import DataclassSerializer
 import logging
 
 logger = logging.getLogger(__name__)

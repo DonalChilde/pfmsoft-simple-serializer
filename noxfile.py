@@ -4,7 +4,7 @@ from pathlib import Path
 
 import nox
 
-package = "pfmsoft_snippets_simple_serializer"
+package = "pfmsoft_simple_serializer"
 github_user = "DonalChilde"
 # python_versions = ["3.10", "3.9", "3.8", "3.7"]
 
@@ -53,7 +53,7 @@ def dev(session: nox.Session) -> None:
 
     # Use the venv's interpreter to install the project along with
     # all it's dev dependencies, this ensures it's installed in the right way
-    session.run(".venv/bin/pip", "install", "-e", ".[dev,lint,doc,vscode,testing]")
+    session.run(".venv/bin/pip", "install", "-e", ".[dev,doc,vscode,testing]")
 
 
 @nox.session(name="docs-build")

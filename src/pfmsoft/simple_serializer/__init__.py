@@ -1,6 +1,6 @@
 """Top-level package for pfmsoft_snippets_simple_serializer."""
 
-from pfmsoft.snippets.simple_serializer.simple_serializer import DataclassSerializer
+from pfmsoft.simple_serializer.simple_serializer import DataclassSerializer
 
 __author__ = "Chad Lowe"
 __email__ = "pfmsoft.dev@gmail.com"

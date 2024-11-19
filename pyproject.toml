@@ -15,7 +15,7 @@ classifiers = [
 
 ]
 authors = [{ name = "Chad Lowe", email = "pfmsoft.dev@gmail.com" }]
-name = "pfmsoft.snippets.simple-serializer"
+name = "pfmsoft.simple-serializer"
 readme = "README.md"
 requires-python = ">=3.13"
 license = { file = "LICENSE" }
@@ -23,17 +23,17 @@ dynamic = ["version", "description"]
 # https://chrisholdgraf.com/blog/2022/install-github-from-pyproject/
 # https://peps.python.org/pep-0508/#examples
 # "pfmsoft-snippets@git+https://github.com/donalchilde/pfmsoft-snippets@0.0.1"
-# "pfmsoft-snippets-indexed-string@git+https://github.com/donalchilde/pfmsoft-snippets-indexed-string@dev"
+# "pfmsoft-snippets-indexed-string@git+https://github.com/donalchilde/pfmsoft-indexed-string@dev"
 # dependencies = ["typer"]
 
 [project.scripts]
-# pfmsoft-snippets-simple-serializer_typer = "pfmsoft_snippets_simple_serializer.cli.main_typer:app"
+# pfmsoft-simple-serializer_typer = "pfmsoft_simple_serializer.cli.main_typer:app"
 
 [project.urls]
-Documentation = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer#readme"
-# Documentation_rtd = "https://pfmsoft-snippets-simple-serializer.readthedocs.io"
-Issues = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer/issues"
-Source = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer"
+Documentation = "https://github.com/DonalChilde/pfmsoft-simple-serializer#readme"
+# Documentation_rtd = "https://pfmsoft-simple-serializer.readthedocs.io"
+Issues = "https://github.com/DonalChilde/pfmsoft-simple-serializer/issues"
+Source = "https://github.com/DonalChilde/pfmsoft-simple-serializer"
 
 
 [project.optional-dependencies]
@@ -85,7 +85,7 @@ parallel = true
 
 [tool.scriv]
 #version = "literal: pyproject.toml: project.version"
-version = "literal: src/pfmsoft_snippets_simple_serializer/__init__.py: __version__"
+version = "literal: src/pfmsoft_simple_serializer/__init__.py: __version__"
 format = "md"
 md_header_level = "2"
 entry_title_template = "file: changelog.d/templates/entry_title_template.md.j2"

@@ -2,7 +2,7 @@
 <!-- markdownlint-disable MD024 -->
 <!-- changelog-begin -->
 
-## [Unreleased](<https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer/compare/0.0.0...dev>)
+## [Unreleased](<https://github.com/DonalChilde/pfmsoft-simple-serializer/compare/0.0.0...dev>)
 <!-- Dont forget to:
     - Update the Unreleased compare version to latest release tag
     - Update compare/_previous_version_tag_
