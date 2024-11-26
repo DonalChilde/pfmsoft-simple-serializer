@@ -35,7 +35,36 @@ Issues = "https://github.com/DonalChilde/pfmsoft-simple-serializer/issues"
 Source = "https://github.com/DonalChilde/pfmsoft-simple-serializer"
 
 
-[project.optional-dependencies]
+# [project.optional-dependencies]
+# dev = [
+
+#     # Automation
+#     "nox",
+#     "pre-commit",
+
+#     # Linting and Formatting
+#     "ruff",
+#     "mypy",
+
+#     # Tools
+#     "pysnooper",
+#     "scriv",
+# ]
+
+# doc = [
+#     # Documentation
+#     "Sphinx",
+#     "sphinx-autobuild",
+#     "sphinx-autodoc-typehints",
+#     "sphinx_rtd_theme",
+#     "myst-parser",
+#     "sphinxcontrib-typer",
+# ]
+# vscode = ["esbonio", "rst2html", "rstcheck"]
+# testing = ["pytest", "coverage[toml]", "pytest-cov"]
+
+
+[dependency-groups]
 dev = [
 
     # Automation
@@ -49,8 +78,13 @@ dev = [
     # Tools
     "pysnooper",
     "scriv",
-]
 
+    # Testing
+    "pytest",
+    "coverage[toml]",
+    "pytest-cov",
+
+]
 doc = [
     # Documentation
     "Sphinx",
@@ -60,12 +94,16 @@ doc = [
     "myst-parser",
     "sphinxcontrib-typer",
 ]
-vscode = ["esbonio", "rst2html", "rstcheck"]
-testing = ["pytest", "coverage[toml]", "pytest-cov"]
+vscode_doc = ["esbonio", "rst2html", "rstcheck"]
+
+[tool.ruff.lint]
+select = ["B", "UP", "D", "DOC"]
+# non-imperative-mood (D401)
+exclude = ["D401"]
 
 
-[tool.ruff]
-target-version = "py313"
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.format]
 docstring-code-format = true
