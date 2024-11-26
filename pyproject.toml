@@ -14,31 +14,57 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 
 ]
-authors = [
-    { name = "Chad Lowe", email = "pfmsoft.dev@gmail.com" },
-]
-name = "pfmsoft-snippets-simple-serializer"
+authors = [{ name = "Chad Lowe", email = "pfmsoft.dev@gmail.com" }]
+name = "pfmsoft.simple-serializer"
 readme = "README.md"
 requires-python = ">=3.13"
 license = { file = "LICENSE" }
 dynamic = ["version", "description"]
 # https://chrisholdgraf.com/blog/2022/install-github-from-pyproject/
 # https://peps.python.org/pep-0508/#examples
-# "pfmsoft-snippets@git+https://github.com/donalchilde/pfmsoft-snippets@0.0.1"
-# "pfmsoft-snippets-indexed-string@git+https://github.com/donalchilde/pfmsoft-snippets-indexed-string@dev"
-dependencies = ["typer"]
+# "pfmsoft-indexed-string@git+https://github.com/donalchilde/pfmsoft-indexed-string@dev"
+# dependencies = ["typer"]
 
 [project.scripts]
-pfmsoft-snippets-simple-serializer_typer = "pfmsoft_snippets_simple_serializer.cli.main_typer:app"
+# pfmsoft-simple-serializer_typer = "pfmsoft_simple_serializer.cli.main_typer:app"
 
 [project.urls]
-Documentation = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer#readme"
-# Documentation_rtd = "https://pfmsoft-snippets-simple-serializer.readthedocs.io"
-Issues = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer/issues"
-Source = "https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer"
+Documentation = "https://github.com/DonalChilde/pfmsoft-simple-serializer#readme"
+# Documentation_rtd = "https://pfmsoft-simple-serializer.readthedocs.io"
+Issues = "https://github.com/DonalChilde/pfmsoft-simple-serializer/issues"
+Source = "https://github.com/DonalChilde/pfmsoft-simple-serializer"
 
 
-[project.optional-dependencies]
+# [project.optional-dependencies]
+# dev = [
+
+#     # Automation
+#     "nox",
+#     "pre-commit",
+
+#     # Linting and Formatting
+#     "ruff",
+#     "mypy",
+
+#     # Tools
+#     "pysnooper",
+#     "scriv",
+# ]
+
+# doc = [
+#     # Documentation
+#     "Sphinx",
+#     "sphinx-autobuild",
+#     "sphinx-autodoc-typehints",
+#     "sphinx_rtd_theme",
+#     "myst-parser",
+#     "sphinxcontrib-typer",
+# ]
+# vscode = ["esbonio", "rst2html", "rstcheck"]
+# testing = ["pytest", "coverage[toml]", "pytest-cov"]
+
+
+[dependency-groups]
 dev = [
 
     # Automation
@@ -52,8 +78,13 @@ dev = [
     # Tools
     "pysnooper",
     "scriv",
-]
 
+    # Testing
+    "pytest",
+    "coverage[toml]",
+    "pytest-cov",
+
+]
 doc = [
     # Documentation
     "Sphinx",
@@ -63,12 +94,16 @@ doc = [
     "myst-parser",
     "sphinxcontrib-typer",
 ]
-vscode = ["esbonio", "rst2html", "rstcheck"]
-testing = ["pytest", "coverage[toml]", "pytest-cov"]
+vscode_doc = ["esbonio", "rst2html", "rstcheck"]
+
+[tool.ruff.lint]
+select = ["B", "UP", "D", "DOC"]
+# non-imperative-mood (D401)
+exclude = ["D401"]
 
 
-[tool.ruff]
-target-version = "py313"
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.format]
 docstring-code-format = true
@@ -87,7 +122,7 @@ parallel = true
 
 [tool.scriv]
 #version = "literal: pyproject.toml: project.version"
-version = "literal: src/pfmsoft_snippets_simple_serializer/__init__.py: __version__"
+version = "literal: src/pfmsoft/simple_serializer/__init__.py: __version__"
 format = "md"
 md_header_level = "2"
 entry_title_template = "file: changelog.d/templates/entry_title_template.md.j2"

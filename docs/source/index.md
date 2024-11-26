@@ -1,4 +1,4 @@
-# Welcome to Pfmsoft Snippets Simple Serializer's documentation
+# Welcome to Pfmsoft Simple Serializer's documentation
 
 ```{toctree}
 ---

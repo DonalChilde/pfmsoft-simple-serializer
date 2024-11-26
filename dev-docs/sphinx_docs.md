@@ -6,7 +6,7 @@ uses a split source/build layout, with an additional source/documentation direct
 # After code changes, and
 # before each release at a minimum,
 # generate the api files for autodoc.
-sphinx-apidoc -f -o ./source/documentation/api-generated/ ../src/pfmsoft_snippets_simple_serializer/
+sphinx-apidoc -f -o ./source/documentation/api-generated/ ../src/pfmsoft_simple_serializer/
 ```
 
 ```bash

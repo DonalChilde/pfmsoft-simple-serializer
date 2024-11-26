@@ -56,7 +56,7 @@ git add .
 git commit -m "initial commit"
 git tag -a 0.0.0 -m "initial commit tag"
 # Link local git repo to a separately created new GitHub project.
-git remote add origin https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer.git
+git remote add origin https://github.com/DonalChilde/pfmsoft-simple-serializer.git
 git push -u origin main
 git push origin 0.0.0
 git branch dev
@@ -96,7 +96,7 @@ git add . && git commit -m "initial commit" && git tag -a 0.0.0 -m "initial comm
 
 ```bash
 # Link a new local git repo to a separately created new GitHub project.
-git remote add origin https://github.com/DonalChilde/pfmsoft-snippets-simple-serializer.git && git push -u origin main && git push origin 0.0.0 && git branch dev && git push -u origin dev && git checkout dev
+git remote add origin https://github.com/DonalChilde/pfmsoft-simple-serializer.git && git push -u origin main && git push origin 0.0.0 && git branch dev && git push -u origin dev && git checkout dev
 ```
 
 ### GitHub setup
